@@ -47,8 +47,12 @@ COPY --from=builder /usr/src/steamguard-cli/target/release/steamguard /usr/local
 # Copy web interface files
 COPY webui /app/webui
 
+# Create the steamguard config directory with appropriate permissions
+RUN mkdir -p /root/.config/steamguard-cli/maFiles && \
+    chmod -R 755 /root/.config/steamguard-cli
+
 # Create a volume to store maFile configurations
-VOLUME /root/.config/steamguard-cli/maFiles
+VOLUME /root/.config/steamguard-cli
 
 # Expose port for web interface
 EXPOSE 8080

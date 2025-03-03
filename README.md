@@ -8,6 +8,7 @@ A command line utility for setting up and using Steam Mobile Authenticator (AKA 
 **The only legitimate place to download steamguard-cli binaries is through this repo's releases, or by any package manager that is linked in this document.**
 
 # Disclaimer
+
 **This utility is effectively in beta. Use this software at your own risk. Make sure to back up your maFiles regularly, and make sure to actually write down your revocation code. If you lose both of these, we can't help you, your only recourse is to beg Steam support.**
 
 # Quickstart
@@ -29,6 +30,7 @@ If you have no idea what the rest of this document is talking about, go read the
 # Install
 
 If you have the Rust toolchain installed:
+
 ```
 cargo install steamguard-cli
 ```
@@ -47,13 +49,16 @@ cargo build --release
 ```
 
 # Usage
+
 `steamguard-cli` looks for your `maFiles/manifest.json` in at these paths, in this order:
 
 Linux:
+
 - `~/.config/steamguard-cli/maFiles/`
 - `~/maFiles/`
 
 Windows:
+
 - `%APPDATA%\Roaming\steamguard-cli\maFiles\`
 - `%USERPROFILE%\maFiles\`
 
@@ -64,6 +69,7 @@ Your `maFiles` can be created with or imported from [Steam Desktop Authenticator
 [SDA]: https://github.com/Jessecar96/SteamDesktopAuthenticator
 
 Full helptext can be displayed with:
+
 ```
 steamguard --help
 ```
@@ -71,6 +77,7 @@ steamguard --help
 ## One Liners
 
 Generate and copy a new code to clipboard:
+
 ```bash
 steamguard | xclip -selection clipboard
 ```
@@ -87,8 +94,31 @@ steamguard -u <account name> qr # print QR code for a specific account
 ```
 
 There are some applications that do not generate correct 2fa codes from the secret, so **do not use them**:
+
 - Google Authenticator
 - Authy
+
+## TrueNAS Scale Installation
+
+To use steamguard-cli on TrueNAS Scale:
+
+1. Create an application with the Container Image `steamguard-cli:latest`
+
+2. Under the Storage Configuration tab:
+
+   - Add a new mount
+   - **Host Path**: Select your dataset where maFiles will be stored (e.g., `/mnt/pool/steamguard`)
+   - **Mount Path**: Set to `/root/.config/steamguard-cli`
+   - Set permissions to Read/Write
+
+3. Under the Networking tab:
+
+   - Add a port mapping from port 8080 (container) to a port of your choice (node)
+
+4. After deployment, place your Steam Guard `.maFile` files in the dataset you selected at:
+   `/mnt/pool/steamguard/maFiles/`
+
+5. Access the web interface at `http://YOUR_TRUENAS_IP:YOUR_CHOSEN_PORT`
 
 # Contributing
 
@@ -102,4 +132,4 @@ By contributing code to this project, you give me and any future maintainers a n
 
 # Used By
 
-* [Unreal Engine to Steam publishing CI/CD pipeline](https://github.com/kasp1/dozer-pipelines), a sample pipeline built for [Dozer](https://github.com/kasp1/Dozer), a simple CI/CD runner
+- [Unreal Engine to Steam publishing CI/CD pipeline](https://github.com/kasp1/dozer-pipelines), a sample pipeline built for [Dozer](https://github.com/kasp1/Dozer), a simple CI/CD runner
