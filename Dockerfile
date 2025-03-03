@@ -47,8 +47,8 @@ COPY --from=builder /usr/src/steamguard-cli/target/release/steamguard /usr/local
 # Copy web interface files
 COPY webui /app/webui
 
-# Create a volume for configuration
-VOLUME /root/.config/steamguard-cli
+# Create a volume to store maFile configurations
+VOLUME /root/.config/steamguard-cli/maFiles
 
 # Expose port for web interface
 EXPOSE 8080
