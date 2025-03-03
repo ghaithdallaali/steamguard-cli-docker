@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  steamguard:
+    build: .
+    image: steamguard-cli:latest
+    container_name: steamguard-cli
+    restart: unless-stopped
+    volumes:
+      - ${STEAMGUARD_CONFIG_DIR:-./config}:/root/.config/steamguard-cli
+    environment:
+      - TZ=${TZ:-UTC}
+    # For TrueNAS Scale, you might want to expose a port if you add a web interface later
+    # ports:
+    #  - "8080:8080"

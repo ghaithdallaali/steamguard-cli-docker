@@ -32,9 +32,10 @@ RUN cargo build --release
 # Runtime stage
 FROM debian:bullseye-slim
 
-# Install runtime dependencies
+# Install runtime dependencies and a lightweight web server
 RUN apt-get update && \
-    apt-get install -y ca-certificates libssl1.1 && \
+    apt-get install -y ca-certificates libssl1.1 python3 python3-pip && \
+    pip3 install flask gunicorn && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -43,10 +44,17 @@ WORKDIR /app
 # Copy the binary from the builder stage
 COPY --from=builder /usr/src/steamguard-cli/target/release/steamguard /usr/local/bin/steamguard
 
+# Copy web interface files
+COPY webui /app/webui
+
 # Create a volume for configuration
 VOLUME /root/.config/steamguard-cli
 
-# Set the entrypoint
-ENTRYPOINT ["steamguard"]
-# Default command (can be overridden)
-CMD ["--help"]
+# Expose port for web interface
+EXPOSE 8080
+
+# Start script that runs both the web UI and provides access to the CLI
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
+ENTRYPOINT ["/app/start.sh"]

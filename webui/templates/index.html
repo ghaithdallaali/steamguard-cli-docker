@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SteamGuard Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f0f0f0;
+      }
+      .card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .code {
+        font-size: 60px;
+        font-weight: bold;
+        color: #4caf50;
+        margin: 30px 0;
+        letter-spacing: 5px;
+      }
+      .error {
+        color: #d32f2f;
+        font-size: 18px;
+        margin: 20px 0;
+      }
+      .accounts {
+        margin-top: 40px;
+      }
+      .accounts-label {
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #555;
+      }
+      .account-item {
+        display: inline-block;
+        padding: 8px 15px;
+        margin: 5px;
+        background-color: #f1f1f1;
+        color: #333;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      .refresh-timer {
+        margin-top: 30px;
+        color: #666;
+        font-size: 14px;
+      }
+      .timer {
+        font-weight: bold;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SteamGuard Code</h1>
+
+    {% if code %}
+    <div class="code">{{ code }}</div>
+    {% endif %} {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %} {% if accounts %}
+    <div class="accounts">
+      <div class="accounts-label">Steam Account:</div>
+      {% for account in accounts %}
+      <span class="account-item">{{ account }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="refresh-timer">
+      This page will refresh automatically in
+      <span id="countdown">10</span> seconds.
+    </div>
+
+    <script>
+      // Set the countdown timer
+      let secondsRemaining = 10;
+
+      // Update the countdown every second
+      const countdownInterval = setInterval(function () {
+        // Decrement the seconds remaining
+        secondsRemaining--;
+
+        // Update the countdown display
+        document.getElementById("countdown").textContent = secondsRemaining;
+
+        // If the countdown reaches 0, refresh the page
+        if (secondsRemaining <= 0) {
+          clearInterval(countdownInterval);
+          window.location.reload();
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
