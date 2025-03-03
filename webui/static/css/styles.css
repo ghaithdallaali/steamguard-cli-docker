@@ -1,0 +1,26 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 100px;
+}
+.code {
+  font-size: 72px;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+.error {
+  font-size: 24px;
+  color: red;
+}
+.accounts {
+  margin-top: 40px;
+}
+.accounts a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #1a9fff;
+}
+.timer {
+  margin-top: 20px;
+  font-size: 24px;
+}

@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  steamguard:
+    build: .
+    image: steamguard-cli:latest
+    container_name: steamguard-cli
+    restart: unless-stopped
+    volumes:
+      - ${STEAMGUARD_CONFIG_DIR:-./config}:/root/.config/steamguard-cli
+    environment:
+      - TZ=${TZ:-UTC}
+    ports:
+      - "8080:8080" # Uncomment this for web interface access
