@@ -23,11 +23,15 @@ To use steamguard-cli-docker on TrueNAS Scale:
    - **Mount Path**: Set to `/root/.config/steamguard-cli`
 4. Under the Networking tab:
    - Add a port mapping from port 8080 (container) to a port of your choice (node)
-5. After deployment, place your Steam Guard `.maFile` files in the dataset you selected at:
+5. Under Environment Variables
+   - Add a new env var, set `Name` to `USERNAME` and `Value` to your preferred web UI login username
+   - Add a new env var, set `Name` to `PASSWORD` and `Value` to your preferred web UI login password
+6. After deployment, place your Steam Guard `.maFile` files in the dataset you selected at:
    `/mnt/pool/steamguard/maFiles/`
-6. Access the web interface at `http://YOUR_TRUENAS_IP:YOUR_CHOSEN_PORT`
+7. Access the web interface at `http://YOUR_TRUENAS_IP:YOUR_CHOSEN_PORT`
 
 ![image](https://github.com/user-attachments/assets/e40f5dc6-13d8-4773-b354-5b77ee7b654e)
 
 ## Hosted Docker Image
+
 https://hub.docker.com/repository/docker/ghaithdallaali/steamguard-cli/general

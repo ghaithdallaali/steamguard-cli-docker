@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e
 
+# Set environment variables if necessary (could be added for better clarity)
+export USERNAME=${USERNAME:-}
+export PASSWORD=${PASSWORD:-}
+
+# Check if credentials are set
+if [[ -z "$USERNAME" || -z "$PASSWORD" ]]; then
+    echo "Error: USERNAME and PASSWORD must be set as environment variables."
+    exit 1
+fi
+
 # Ensure config directory has correct permissions
 CONFIG_DIR="/root/.config/steamguard-cli"
 if [ ! -d "$CONFIG_DIR/maFiles" ]; then
