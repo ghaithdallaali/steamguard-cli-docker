@@ -29,5 +29,12 @@ To use steamguard-cli-docker on TrueNAS Scale:
 
 ![image](https://github.com/user-attachments/assets/e40f5dc6-13d8-4773-b354-5b77ee7b654e)
 
+## Environment Variables
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| `SHOW_STEAM_ACCOUNT` | Show the Steam account name(s) in the web UI | `false` |
+| `TZ` | Timezone setting for the container | `UTC` |
+
 ## Hosted Docker Image
 https://hub.docker.com/repository/docker/ghaithdallaali/steamguard-cli/general

@@ -41,6 +41,9 @@ RUN apt-get update && \
 
 WORKDIR /app
 
+# Set default environment variables
+ENV SHOW_STEAM_ACCOUNT=false
+
 # Copy the binary from the builder stage
 COPY --from=builder /usr/src/steamguard-cli/target/release/steamguard /usr/local/bin/steamguard
 

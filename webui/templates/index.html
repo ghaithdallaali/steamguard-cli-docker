@@ -68,7 +68,7 @@
     <div class="code">{{ code }}</div>
     {% endif %} {% if error %}
     <div class="error">{{ error }}</div>
-    {% endif %} {% if accounts %}
+    {% endif %} {% if show_account and accounts %}
     <div class="accounts">
       <div class="accounts-label">Steam Account:</div>
       {% for account in accounts %}

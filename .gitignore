@@ -10,3 +10,5 @@ test_maFiles/
 
 target/
 aur/
+__pycache__/
+*.pyc

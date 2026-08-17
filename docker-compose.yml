@@ -10,5 +10,6 @@ services:
       - ${STEAMGUARD_CONFIG_DIR:-./config}:/root/.config/steamguard-cli
     environment:
       - TZ=${TZ:-UTC}
+      - SHOW_STEAM_ACCOUNT=${SHOW_STEAM_ACCOUNT:-false}
     ports:
       - "8080:8080" # Uncomment this for web interface access

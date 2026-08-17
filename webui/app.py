@@ -32,8 +32,12 @@ def get_accounts():
 
 @app.route('/')
 def index():
-    accounts = get_accounts()
-    print(f"Found accounts: {accounts}")
+    show_account_env = os.environ.get('SHOW_STEAM_ACCOUNT', os.environ.get('SHOW_ACCOUNT', 'false'))
+    show_account = show_account_env.strip().lower() in ('true', '1', 't', 'yes', 'y', 'on')
+    
+    accounts = get_accounts() if show_account else []
+    if show_account:
+        print(f"Found accounts: {accounts}")
     
     code = None
     error = None
@@ -52,7 +56,7 @@ def index():
         print(f"Exception getting code: {e}")
         error = f"Exception: {str(e)}"
     
-    return render_template('index.html', accounts=accounts, code=code, error=error)
+    return render_template('index.html', accounts=accounts, code=code, error=error, show_account=show_account)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
