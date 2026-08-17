@@ -4,14 +4,9 @@ set -e
 # Ensure config directory has correct permissions
 CONFIG_DIR="/root/.config/steamguard-cli"
 if [ ! -d "$CONFIG_DIR/maFiles" ]; then
-    mkdir -p "$CONFIG_DIR/maFiles"
+    mkdir -p "$CONFIG_DIR/maFiles" || true
     echo "Created maFiles directory at $CONFIG_DIR/maFiles"
 fi
-
-# Start the web UI in the background
-cd /app/webui
-echo "Starting web UI on port 8080..."
-gunicorn --bind 0.0.0.0:8080 app:app &
 
 # Print helpful information
 echo "==============================================="
@@ -25,5 +20,7 @@ echo "Place your .maFile files in:"
 echo "$CONFIG_DIR/maFiles/"
 echo "==============================================="
 
-# Keep the container available for CLI commands
-exec tail -f /dev/null
+# Start the web UI in the foreground as PID 1
+cd /app/webui
+echo "Starting web UI on port 8080..."
+exec gunicorn --bind 0.0.0.0:8080 app:app

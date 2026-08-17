@@ -62,6 +62,6 @@ EXPOSE 8080
 
 # Start script that runs both the web UI and provides access to the CLI
 COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
+RUN sed -i 's/\r$//' /app/start.sh && chmod +x /app/start.sh
 
 ENTRYPOINT ["/app/start.sh"]
